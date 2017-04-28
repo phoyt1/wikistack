@@ -4,6 +4,7 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const models = require('models');
 
 const app = express();
 app.use(express.static('public'));
@@ -15,3 +16,11 @@ nunjucks.configure('views', { noCache: true });
 /** URL and JSON parser **/
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+/** logging **/
+app.use(morgan('combined'));
+
+models.Page.sync();
+
+models.User.sync();
+
