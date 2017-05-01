@@ -24,14 +24,15 @@ routes.post('/',(req,res,next) =>{
     defaults: user
   })
   .then(userData => {
-    console.log(userData);
+    var authorID = userData[0];
     var page = Page.build({
       title: req.body.title,
       content: req.body.pageContent,
-      authorId: userData[0].dataValues.id
     });
-    page.save().then(data => res.redirect(data.route)).catch(next);
-  });
+    return page.save().then(() => page.setAuthor(authorID));
+  })
+  .then(data => res.redirect(data.route))
+  .catch(next);
 });
 
 routes.get('/add',(req,res) =>{
