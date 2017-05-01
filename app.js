@@ -4,7 +4,8 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const models = require('models');
+const models = require('./models');
+const routes = require('./routes');
 
 const app = express();
 app.use(express.static('public'));
@@ -20,7 +21,9 @@ app.use(bodyParser.json());
 /** logging **/
 app.use(morgan('combined'));
 
-models.Page.sync();
+// load all tables, then start listening
+models.db.sync({force: true})
+  .then(() => app.listen(3000, () => console.log('Listing on port 3000!')))
+  .catch(err => console.error(err));
 
-models.User.sync();
-
+app.use('/', routes);
