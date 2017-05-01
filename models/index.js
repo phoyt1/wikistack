@@ -13,24 +13,22 @@ var Page = db.define('page',
   {
     getterMethods:  {
       route:  function(){return '/wiki/' + this.urlTitle}
-    }
-  }//,
-  // {
-  //   hooks: {
-  //     beforeValidate: function(page) {
-  //       if(!page.title) {page.urlTitle = Math.random().toString(36).substring(2,7);}
-  //       else{page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');}
-  //       console.log(page);
-  //     }
-  //   }
-  // }
-);
-
-Page.hook('beforeValidate',function(page) {
+    },
+    hooks: {
+      beforeValidate: function(page) {
         if(!page.title) {page.urlTitle = Math.random().toString(36).substring(2,7);}
         else{page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');}
-        console.log(page);
-      });
+        //console.log(page);
+      }
+    }
+  }
+);
+
+// Page.hook('beforeValidate',function(page) {
+//         if(!page.title) {page.urlTitle = Math.random().toString(36).substring(2,7);}
+//         else{page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');}
+//         console.log(page);
+//       });
 
 var User = db.define('user', {
   // desired fields

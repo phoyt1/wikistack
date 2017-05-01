@@ -23,7 +23,7 @@ app.use(morgan('combined'));
 
 // load all tables, then start listening
 models.db.sync({force: true})
-  .then(() => app.listen(3000, () => console.log('Listing on port 3000!')))
+  .then(() => app.listen(3000, () => console.log('DELETING DATABASE ... Listing on port 3000!')))
   .catch(err => console.error(err));
 
 app.use('/', routes);
