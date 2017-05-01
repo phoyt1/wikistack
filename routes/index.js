@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = express.routes();
+const routes = express.Router();
 const userRoute = require('./user.js');
 const wikiRoute = require('./wiki.js');
 module.export = routes;
